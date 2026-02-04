@@ -1,4 +1,5 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+console.log('API_BASE:', API_BASE);
 
 let accessToken: string | null = null;
 let refreshToken: string | null = null;
@@ -75,7 +76,10 @@ export async function api<T>(
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(err.error ?? err.message ?? 'Request failed');
+    const errorMessage = err.error ? 
+      (typeof err.error === 'string' ? err.error : JSON.stringify(err.error)) : 
+      (err.message ?? 'Request failed');
+    throw new Error(errorMessage);
   }
 
   if (res.status === 204) return undefined as T;
