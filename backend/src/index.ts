@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://task-management-7-fmdw.onrender.com"
+      "https://task-management-xki8.vercel.app"
     ],
     credentials: true,
   })
